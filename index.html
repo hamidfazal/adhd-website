@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADHD — Integrated Clinical Overview</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            height: 60px;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-links::-webkit-scrollbar { display: none; }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: color 0.2s;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            margin-top: 60px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .hero .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hero .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            scroll-margin-top: 80px;
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h3 {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .section ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .info-card {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 1.25rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .info-card h4 {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-card p, .info-card ul {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .info-card ul {
+            margin-left: 1.2rem;
+        }
+
+        /* Tables */
+        .table-wrap {
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: var(--bg);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text);
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tr:hover {
+            background: var(--bg);
+        }
+
+        /* Highlights */
+        .highlight-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+        }
+
+        .warning-box {
+            background: #fffbeb;
+            border-left: 4px solid var(--warning);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+        }
+
+        .danger-box {
+            background: #fef2f2;
+            border-left: 4px solid var(--danger);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+        }
+
+        .success-box {
+            background: #ecfdf5;
+            border-left: 4px solid var(--success);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .tag-primary { background: #dbeafe; color: var(--primary); }
+        .tag-success { background: #d1fae5; color: var(--success); }
+        .tag-warning { background: #fef3c7; color: #92400e; }
+        .tag-danger { background: #fee2e2; color: var(--danger); }
+
+        /* Algorithm */
+        .algorithm {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 1rem 0;
+        }
+
+        .algo-step {
+            background: var(--bg);
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .algo-step::after {
+            content: "↓";
+            position: absolute;
+            bottom: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+
+        .algo-step:last-child::after { display: none; }
+
+        .algo-step .step-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.75rem; }
+            .nav-links { gap: 1rem; }
+            .section { padding: 1.25rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Print */
+        @media print {
+            .nav { display: none; }
+            .hero { margin-top: 0; background: white; color: black; }
+            .section { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">ADHD Clinical Overview</a>
+            <ul class="nav-links">
+                <li><a href="#definition">Definition</a></li>
+                <li><a href="#epidemiology">Epidemiology</a></li>
+                <li><a href="#neurobiology">Neurobiology</a></li>
+                <li><a href="#clinical">Clinical</a></li>
+                <li><a href="#diagnosis">Diagnosis</a></li>
+                <li><a href="#treatment">Treatment</a></li>
+                <li><a href="#pharma">Pharma</a></li>
+                <li><a href="#algorithm">Algorithm</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Attention-Deficit/Hyperactivity Disorder</h1>
+        <p class="subtitle">Integrated Clinical Overview for Doctors & Medical Students</p>
+        <span class="badge">Evidence-Based · Comprehensive · Practical</span>
+    </header>
+
+    <main class="container">
+
+        <!-- 1. Definition -->
+        <section class="section" id="definition">
+            <h2>1. Definition</h2>
+            <p>ADHD is a <strong>chronic neurodevelopmental disorder</strong> characterized by developmentally inappropriate levels of:</p>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Inattention</h4>
+                    <p>Difficulty sustaining focus, organizing tasks, following through.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Hyperactivity</h4>
+                    <p>Excessive motor activity, restlessness, inability to stay seated.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Impulsivity</h4>
+                    <p>Hasty actions without forethought, interrupting, risk-taking.</p>
+                </div>
+            </div>
+
+            <p>Functional impairment occurs across:</p>
+            <ul>
+                <li>Academic performance</li>
+                <li>Occupational functioning</li>
+                <li>Interpersonal relationships</li>
+                <li>Emotional regulation</li>
+            </ul>
+
+            <h3>DSM-5 Presentations</h3>
+            <div class="table-wrap">
+                <table>
+                    <tr>
+                        <th>Presentation</th>
+                        <th>Key Features</th>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-primary">Predominantly Inattentive</span></td>
+                        <td>Difficulty sustaining attention, disorganization, forgetfulness; less overt hyperactivity</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-warning">Predominantly Hyperactive-Impulsive</span></td>
+                        <td>Fidgeting, interrupting, impulsive actions; more common in young children</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-danger">Combined</span></td>
+                        <td>Meets criteria for both inattention and hyperactivity-impulsivity</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Adult ADHD:</strong> Increasingly recognized. Many "adult-onset" cases likely represent previously unrecognized childhood ADHD, though late-emergent executive dysfunction phenotypes remain debated.
+            </div>
+        </section>
+
+        <!-- 2. Epidemiology -->
+        <section class="section" id="epidemiology">
+            <h2>2. Epidemiology</h2>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Childhood Prevalence</h4>
+                    <p><strong>~5–7%</strong> globally</p>
+                </div>
+                <div class="info-card">
+                    <h4>Adult Prevalence</h4>
+                    <p><strong>~2.5–4%</strong></p>
+                </div>
+                <div class="info-card">
+                    <h4>Gender Ratio</h4>
+                    <p>Male predominance in childhood; female underdiagnosis common (more inattentive phenotype)</p>
+                </div>
+                <div class="info-card">
+                    <h4>Persistence</h4>
+                    <p>~<strong>60%</strong> retain clinically significant symptoms into adulthood</p>
+                </div>
+            </div>
+            <ul>
+                <li>Hyperactivity typically <strong>declines with age</strong></li>
+                <li>Executive dysfunction and <strong>emotional dysregulation persist</strong></li>
+            </ul>
+        </section>
+
+        <!-- 3. Neurobiology -->
+        <section class="section" id="neurobiology">
+            <h2>3. Neurobiology</h2>
+
+            <h3>Core Neurocircuitry</h3>
+            <ul>
+                <li><strong>Frontostriatal dysfunction</strong></li>
+                <li>Frontocerebellar network abnormalities</li>
+                <li>Default mode network dysregulation</li>
+            </ul>
+
+            <h3>Key Neurotransmitters</h3>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Dopamine</h4>
+                    <p>Mesocortical system; reward processing; motivation</p>
+                </div>
+                <div class="info-card">
+                    <h4>Norepinephrine</h4>
+                    <p>Prefrontal cortex signaling; attention regulation</p>
+                </div>
+            </div>
+
+            <h3>Genetics</h3>
+            <ul>
+                <li>Highly heritable: <strong>~70–80%</strong></li>
+                <li>Polygenic inheritance</li>
+                <li>Associated genes: <code>DAT1</code>, <code>DRD4</code>, <code>SNAP25</code></li>
+            </ul>
+
+            <h3>Environmental Contributors</h3>
+            <div class="table-wrap">
+                <table>
+                    <tr>
+                        <th>Risk Factor</th>
+                        <th>Notes</th>
+                    </tr>
+                    <tr><td>Prematurity</td><td>Neurodevelopmental vulnerability</td></tr>
+                    <tr><td>Prenatal nicotine/alcohol</td><td>Teratogenic effects on CNS development</td></tr>
+                    <tr><td>Lead exposure</td><td>Neurotoxic; dose-dependent risk</td></tr>
+                    <tr><td>Severe psychosocial adversity</td><td>Chronic stress impacts prefrontal development</td></tr>
+                    <tr><td>Traumatic brain injury (TBI)</td><td>Secondary ADHD phenotype</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4. Clinical Presentation -->
+        <section class="section" id="clinical">
+            <h2>4. Clinical Presentation</h2>
+
+            <h3>A. Childhood ADHD</h3>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Inattention</h4>
+                    <ul>
+                        <li>Careless mistakes</li>
+                        <li>Poor sustained attention</li>
+                        <li>Avoids prolonged mental effort</li>
+                        <li>Disorganization</li>
+                        <li>Forgetfulness</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Hyperactivity</h4>
+                    <ul>
+                        <li>Fidgeting</li>
+                        <li>Climbing/running excessively</li>
+                        <li>Inability to remain seated</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Impulsivity</h4>
+                    <ul>
+                        <li>Blurting out answers</li>
+                        <li>Interrupting</li>
+                        <li>Risk-taking behavior</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>School manifestations:</strong> Incomplete assignments, disruptive behavior, academic underachievement despite normal intelligence.
+            </div>
+
+            <h3>B. Adult ADHD</h3>
+            <p>Hyperactivity becomes <strong>internalized</strong> as "mental restlessness."</p>
+
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Core Symptoms</h4>
+                    <ul>
+                        <li>Executive dysfunction</li>
+                        <li>Procrastination</li>
+                        <li>Poor time management</li>
+                        <li>Emotional impulsivity</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Functional Impact</h4>
+                    <ul>
+                        <li>Relationship instability</li>
+                        <li>Occupational inconsistency</li>
+                        <li>Chronic overwhelm</li>
+                        <li>Low frustration tolerance</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Associated Features</h4>
+                    <ul>
+                        <li>Rejection sensitivity</li>
+                        <li>Emotional dysregulation</li>
+                        <li>Substance misuse (masking)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Hidden presentations:</strong> "High achiever with chaos," chronic burnout, repeated career changes. These patients often compensate with high IQ but suffer internally.
+            </div>
+        </section>
+
+        <!-- 5. Differential Diagnosis -->
+        <section class="section" id="differential">
+            <h2>5. Differential Diagnosis</h2>
+            <div class="table-wrap">
+                <table>
+                    <tr>
+                        <th>Disorder</th>
+                        <th>Distinguishing Features</th>
+                    </tr>
+                    <tr>
+                        <td>Anxiety disorders</td>
+                        <td>Concentration impaired by worry/rumination; symptoms worsen with stress</td>
+                    </tr>
+                    <tr>
+                        <td>Major depression</td>
+                        <td>Episodic cognitive slowing; anhedonia; mood-congruent symptoms</td>
+                    </tr>
+                    <tr>
+                        <td>Bipolar disorder</td>
+                        <td>Episodic decreased need for sleep, euphoria, grandiosity</td>
+                    </tr>
+                    <tr>
+                        <td>Borderline personality</td>
+                        <td>Abandonment sensitivity + unstable identity + self-harm</td>
+                    </tr>
+                    <tr>
+                        <td>Autism spectrum</td>
+                        <td>Social reciprocity deficits, restricted interests, sensory issues</td>
+                    </tr>
+                    <tr>
+                        <td>Learning disorders</td>
+                        <td>Domain-specific impairment (e.g., dyslexia, dyscalculia)</td>
+                    </tr>
+                    <tr>
+                        <td>Sleep disorders</td>
+                        <td>Daytime inattention secondary to fatigue/sleep deprivation</td>
+                    </tr>
+                    <tr>
+                        <td>Substance use</td>
+                        <td>Stimulant/cannabis effects; temporal relationship to use</td>
+                    </tr>
+                    <tr>
+                        <td>Trauma/PTSD</td>
+                        <td>Hypervigilance mimicking ADHD; trauma history; flashbacks</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- 6. Comorbidities -->
+        <section class="section" id="comorbidities">
+            <h2>6. Comorbidities</h2>
+            <p>Very common in both children and adults. Always screen systematically.</p>
+
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Children & Adolescents</h4>
+                    <ul>
+                        <li>Anxiety disorders</li>
+                        <li>Depression</li>
+                        <li>Oppositional defiant disorder</li>
+                        <li>Conduct disorder</li>
+                        <li>Substance use disorders</li>
+                        <li>Learning disorders</li>
+                        <li>Tic disorders</li>
+                        <li>Autism spectrum disorder</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Adults</h4>
+                    <ul>
+                        <li>Bipolar spectrum disorders</li>
+                        <li>Personality disorders</li>
+                        <li>Obesity</li>
+                        <li>Sleep disorders</li>
+                        <li>Substance use disorders</li>
+                        <li>Anxiety & depression</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Diagnostic Approach -->
+        <section class="section" id="diagnosis">
+            <h2>7. Diagnostic Approach</h2>
+            <div class="danger-box">
+                <strong>Diagnosis remains clinical.</strong> There is no definitive laboratory or imaging test for ADHD.
+            </div>
+
+            <h3>DSM-5 Essentials</h3>
+            <ul>
+                <li>Symptoms present <strong>before age 12</strong></li>
+                <li>Present in <strong>≥2 settings</strong> (e.g., home and school/work)</li>
+                <li>Cause <strong>clinically significant impairment</strong></li>
+                <li>Not better explained by another mental disorder</li>
+            </ul>
+
+            <h3>Assessment Tools</h3>
+            <div class="table-wrap">
+                <table>
+                    <tr>
+                        <th>Population</th>
+                        <th>Tool</th>
+                        <th>Type</th>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">Children</td>
+                        <td>Vanderbilt Assessment Scales</td>
+                        <td>Parent & teacher rating</td>
+                    </tr>
+                    <tr>
+                        <td>Conners Rating Scales</td>
+                        <td>Comprehensive behavioral</td>
+                    </tr>
+                    <tr>
+                        <td>SNAP-IV</td>
+                        <td>DSM-IV symptom checklist</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Adults</td>
+                        <td>ASRS v1.1 (WHO)</td>
+                        <td>Self-report screening</td>
+                    </tr>
+                    <tr>
+                        <td>DIVA-5 Interview</td>
+                        <td>Structured diagnostic interview</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="success-box">
+                <strong>Collateral history is crucial.</strong> Especially for adults, corroboration from family members or old school records significantly improves diagnostic accuracy.
+            </div>
+        </section>
+
+        <!-- 8. Principles of Treatment -->
+        <section class="section" id="treatment">
+            <h2>8. Principles of Treatment</h2>
+            <p>Management should be:</p>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Multimodal</h4>
+                    <p>Combine pharmacological and non-pharmacological interventions</p>
+                </div>
+                <div class="info-card">
+                    <h4>Longitudinal</h4>
+                    <p>ADHD is chronic; treatment needs evolve across the lifespan</p>
+                </div>
+                <div class="info-card">
+                    <h4>Individualized</h4>
+                    <p>Tailor to symptom profile, comorbidities, and patient preferences</p>
+                </div>
+            </div>
+
+            <h3>Treatment Pillars</h3>
+            <ul>
+                <li><strong>Psychoeducation</strong> — for patient and family</li>
+                <li><strong>Behavioral/environmental interventions</strong></li>
+                <li><strong>Pharmacotherapy</strong></li>
+                <li><strong>Family/school/work support</strong></li>
+                <li><strong>Comorbidity management</strong></li>
+            </ul>
+        </section>
+
+        <!-- 9-11. Pharmacological Treatment -->
+        <section class="section" id="pharma">
+            <h2>9–11. Pharmacological Treatment</h2>
+
+            <div class="highlight-box">
+                <strong>First-line agents:</strong> Stimulants (methylphenidate and amphetamine groups). Largest effect size among psychiatric medications. Response rate ~70%; ~85% after sequential trials.
+            </div>
+
+            <h3>10A. Methylphenidate</h3>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Mechanism</h4>
+                    <p>DAT and NET inhibition → ↑ dopamine/norepinephrine in PFC</p>
+                </div>
+                <div class="info-card">
+                    <h4>Formulations</h4>
+                    <p>IR (3–4h), ER (8–12h), OROS osmotic release</p>
+                </div>
+                <div class="info-card">
+                    <h4>Clinical Pearl</h4>
+                    <p>Often preferred initially in children; lower abuse potential than amphetamines</p>
+                </div>
+            </div>
+
+            <h4>Adverse Effects</h4>
+            <p><span class="tag tag-warning">Common:</span> Appetite suppression, insomnia, irritability, tachycardia, headache, abdominal pain</p>
+            <p><span class="tag tag-danger">Rare:</span> Psychosis, tics worsening, priapism</p>
+            <p><span class="tag tag-primary">Growth:</span> Mild growth attenuation in children — monitor height/weight</p>
+
+            <h3>10B. Amphetamine Preparations</h3>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Examples</h4>
+                    <ul>
+                        <li>Mixed amphetamine salts</li>
+                        <li>Lisdexamfetamine (prodrug)</li>
+                        <li>Dextroamphetamine</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Mechanism</h4>
+                    <p>Promote dopamine release, reverse transporter flux, VMAT2 interaction</p>
+                </div>
+                <div class="info-card">
+                    <h4>Profile</h4>
+                    <p>Slightly stronger efficacy, slightly more adverse effects. Useful for adults and severe executive dysfunction.</p>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <strong>Lisdexamfetamine:</strong> Prodrug with smoother pharmacokinetics and lower abuse liability. Often preferred in adults.
+            </div>
+
+            <h3>11A. Atomoxetine (Non-Stimulant)</h3>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Advantages</h4>
+                    <ul>
+                        <li>Not a controlled substance</li>
+                        <li>Useful when anxiety is prominent</li>
+                        <li>Useful in tic disorders</li>
+                        <li>Lower abuse risk</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Disadvantages</h4>
+                    <ul>
+                        <li>Delayed onset (2–6 weeks)</li>
+                        <li>Lower efficacy than stimulants</li>
+                        <li>Nausea, fatigue, sexual dysfunction</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="danger-box">
+                <strong>Black box warning:</strong> Increased suicidal ideation in youth. Monitor closely during initiation.
+            </div>
+
+            <h3>11B. Alpha-2 Agonists (Guanfacine & Clonidine)</h3>
+            <p>Mechanism: Strengthen prefrontal cortical regulation.</p>
+            <p><strong>Best for:</strong> Hyperactivity, impulsivity, aggression, sleep problems, tics.</p>
+            <div class="warning-box">
+                <strong>Do not stop abruptly</strong> — risk of rebound hypertension. Taper gradually.
+            </div>
+
+            <h3>11C. Other Off-Label Options</h3>
+            <div class="table-wrap">
+                <table>
+                    <tr>
+                        <th>Agent</th>
+                        <th>Useful When</th>
+                        <th>Cautions</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Bupropion</strong></td>
+                        <td>ADHD + depression; nicotine dependence</td>
+                        <td>Avoid in seizure disorders, eating disorders</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Modafinil</strong></td>
+                        <td>Some benefit in adults (not standard)</td>
+                        <td>Risk of Stevens-Johnson syndrome (rare)</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- 12. Choosing Medication -->
+        <section class="section" id="choosing">
+            <h2>12. Choosing Medication — Expert Approach</h2>
+
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Children</h4>
+                    <p><strong>Start:</strong> Methylphenidate</p>
+                    <p><strong>If inadequate:</strong> Amphetamine class</p>
+                    <p><strong>If anxiety/tics:</strong> Atomoxetine or guanfacine</p>
+                </div>
+                <div class="info-card">
+                    <h4>Adults</h4>
+                    <p><strong>Preferred:</strong> Long-acting stimulants (lisdexamfetamine, OROS methylphenidate)</p>
+                    <p><strong>If substance misuse risk:</strong> Non-stimulants</p>
+                    <p><strong>If cardiovascular concern:</strong> Atomoxetine or guanfacine</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 13. Comorbidity Pearls -->
+        <section class="section" id="comorbidity-pearls">
+            <h2>13. ADHD + Comorbidity Pearls</h2>
+            <div class="table-wrap">
+                <table>
+                    <tr>
+                        <th>Comorbidity</th>
+                        <th>Preferred Approach</th>
+                    </tr>
+                    <tr>
+                        <td>Anxiety</td>
+                        <td>Treat ADHD cautiously; atomoxetine useful; consider lower stimulant doses</td>
+                    </tr>
+                    <tr>
+                        <td>Bipolar disorder</td>
+                        <td><strong>Stabilize mood BEFORE stimulants</strong> — risk of mania induction</td>
+                    </tr>
+                    <tr>
+                        <td>Tic disorder</td>
+                        <td>Guanfacine, clonidine, or atomoxetine preferred</td>
+                    </tr>
+                    <tr>
+                        <td>Substance use</td>
+                        <td>Lisdexamfetamine or non-stimulants; avoid IR stimulants</td>
+                    </tr>
+                    <tr>
+                        <td>Depression</td>
+                        <td>Bupropion useful for both conditions</td>
+                    </tr>
+                    <tr>
+                        <td>Autism</td>
+                        <td>Lower doses; expect more side effects; slower titration</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- 14-16. Special Considerations -->
+        <section class="section" id="special">
+            <h2>14–16. Special Considerations</h2>
+
+            <h3>14. Cardiovascular</h3>
+            <ul>
+                <li>Obtain cardiac history and family history of sudden death</li>
+                <li>Check BP/pulse before and during treatment</li>
+                <li>ECG: <strong>not routinely mandatory</strong>, but useful if risk factors present</li>
+                <li>Typical effects: mild HR/BP increase</li>
+                <li>Avoid/monitor carefully with severe arrhythmias, uncontrolled hypertension, structural heart disease</li>
+            </ul>
+
+            <h3>15. Growth & Appetite</h3>
+            <div class="warning-box">
+                <strong>Monitor:</strong> Weight, height, appetite in children. Growth suppression is usually modest. Management strategies: protein-rich breakfast, evening calorie supplementation, selective medication holidays.
+            </div>
+
+            <h3>16. Sleep Management</h3>
+            <p>ADHD commonly coexists with delayed sleep phase and insomnia.</p>
+            <ul>
+                <li>Optimize stimulant timing (earlier dosing)</li>
+                <li>Sleep hygiene interventions</li>
+                <li>Treat sleep apnea or restless legs if present</li>
+                <li>Sometimes useful: melatonin, guanfacine/clonidine at bedtime</li>
+            </ul>
+        </section>
+
+        <!-- 17. Substance Use -->
+        <section class="section" id="substance">
+            <h2>17. ADHD and Substance Use</h2>
+            <div class="highlight-box">
+                <strong>Untreated ADHD itself increases SUD risk.</strong> Appropriate stimulant treatment may <em>reduce</em> long-term SUD risk by improving self-regulation.
+            </div>
+            <p><strong>Risk mitigation strategies:</strong></p>
+            <ul>
+                <li>Use extended-release formulations</li>
+                <li>Implement pill counts and prescription monitoring</li>
+                <li>Avoid IR stimulants in high-risk patients</li>
+                <li>Consider lisdexamfetamine (lower abuse liability)</li>
+            </ul>
+        </section>
+
+        <!-- 18. Psychotherapy -->
+        <section class="section" id="psychotherapy">
+            <h2>18. Psychotherapy & Behavioral Interventions</h2>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Children</h4>
+                    <ul>
+                        <li>Parent management training</li>
+                        <li>Classroom interventions</li>
+                        <li>Social skills training</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Adults</h4>
+                    <ul>
+                        <li>CBT for ADHD</li>
+                        <li>Executive function coaching</li>
+                        <li>Organizational systems training</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="success-box">
+                <strong>Key principle:</strong> Medication improves <em>"capacity."</em> Skills training improves <em>"performance."</em> Both are necessary for optimal outcomes.
+            </div>
+        </section>
+
+        <!-- 19. Integrative Medicine -->
+        <section class="section" id="integrative">
+            <h2>19. Nutritional & Integrative Perspectives</h2>
+            <p><em>Evidence quality varies greatly. These are adjunctive, not replacement for standard care.</em></p>
+
+            <h3>A. Omega-3 Fatty Acids</h3>
+            <div class="highlight-box">
+                <strong>Most evidence among supplements.</strong> Higher EPA formulations (~1–2 g EPA/day) may help modestly. Small effect size — use as adjunct only.
+            </div>
+
+            <h3>B. Iron</h3>
+            <p>Low ferritin associated with ADHD severity in some children. Consider testing if restless legs, sleep issues, or restricted diet. <strong>Treat only confirmed deficiency.</strong></p>
+
+            <h3>C. Zinc & Magnesium</h3>
+            <p>Possible small benefit in deficient populations. Evidence inconsistent. Magnesium may help sleep/anxiety in deficient individuals.</p>
+
+            <h3>D. Elimination Diets</h3>
+            <p>Subset of children may respond to artificial food color restriction or few-food elimination diets. Challenges: difficult adherence, nutritional risks. <strong>Not first-line.</strong></p>
+
+            <h3>E. Herbal/Alternative Agents</h3>
+            <p>Ginkgo, Bacopa, Pycnogenol: small studies, inconsistent results. <strong>Not guideline-supported monotherapy.</strong></p>
+        </section>
+
+        <!-- 20-21. Neurofeedback & Exercise -->
+        <section class="section" id="lifestyle">
+            <h2>20–21. Neurofeedback & Exercise</h2>
+
+            <h3>20. Neurofeedback</h3>
+            <p>Mixed evidence. Some patients report benefit, but less robust than stimulant treatment. Potential role as adjunctive therapy for motivated families.</p>
+
+            <h3>21. Exercise</h3>
+            <div class="success-box">
+                <strong>Strong supportive evidence.</strong> Benefits executive function, mood, sleep, and emotional regulation. Often under-prescribed clinically. Recommend regular aerobic activity as part of multimodal treatment.
+            </div>
+        </section>
+
+        <!-- 22. Adult Diagnostic Pitfalls -->
+        <section class="section" id="pitfalls">
+            <h2>22. Adult ADHD Diagnostic Pitfalls</h2>
+
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Reasons for Missed Diagnosis</h4>
+                    <ul>
+                        <li>High IQ compensation strategies</li>
+                        <li>Internalized hyperactivity</li>
+                        <li>Female inattentive presentations</li>
+                        <li>Comorbid anxiety/depression masking symptoms</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Overdiagnosis Pitfalls</h4>
+                    <ul>
+                        <li>Trauma-related executive dysfunction</li>
+                        <li>Chronic sleep deprivation</li>
+                        <li>Chronic anxiety</li>
+                        <li>Excessive digital overstimulation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 23. Pregnancy -->
+        <section class="section" id="pregnancy">
+            <h2>23. Pregnancy & Lactation</h2>
+            <p>Evidence is evolving. General principles:</p>
+            <ul>
+                <li>Weigh maternal functional impairment vs. fetal risk</li>
+                <li>Behavioral interventions preferred if symptoms are mild</li>
+                <li><strong>Methylphenidate:</strong> Data relatively reassuring overall</li>
+                <li><strong>Amphetamine:</strong> Possible risks include lower birth weight, hypertension</li>
+                <li><strong>Atomoxetine:</strong> Limited data available</li>
+            </ul>
+            <div class="highlight-box">
+                Clinical practice: Individualized shared decision-making with thorough informed consent.
+            </div>
+        </section>
+
+        <!-- 24. Emerging Concepts -->
+        <section class="section" id="emerging">
+            <h2>24. Emerging Concepts</h2>
+            <p>Current ADHD literature increasingly examines:</p>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Clinical Phenotypes</h4>
+                    <ul>
+                        <li>Emotional dysregulation</li>
+                        <li>Sluggish cognitive tempo</li>
+                        <li>Executive function network models</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Biological Factors</h4>
+                    <ul>
+                        <li>Overlap with autism spectrum</li>
+                        <li>Sleep/circadian dysfunction</li>
+                        <li>Inflammatory/metabolic contributions</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 25. Treatment Algorithm -->
+        <section class="section" id="algorithm">
+            <h2>25. Practical Treatment Algorithm</h2>
+
+            <div class="algorithm">
+                <div class="algo-step">
+                    <div class="step-title">Step 1: Mild ADHD</div>
+                    <p>Psychoeducation → School/work interventions → CBT/coaching → Exercise/sleep optimization</p>
+                </div>
+
+                <div class="algo-step">
+                    <div class="step-title">Step 2: Moderate–Severe ADHD</div>
+                    <p><strong>First-line: Stimulant</strong> (methylphenidate or amphetamine based on age/comorbidities)</p>
+                </div>
+
+                <div class="algo-step">
+                    <div class="step-title">Step 3: Ineffective or Intolerable</div>
+                    <p>Switch stimulant class → Then consider atomoxetine or guanfacine</p>
+                </div>
+
+                <div class="algo-step">
+                    <div class="step-title">Step 4: Throughout</div>
+                    <p>Treat comorbidities concurrently → Monitor longitudinally → Adjust as needed</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 26. Key Clinical Pearls -->
+        <section class="section" id="pearls">
+            <h2>26. Key Clinical Pearls</h2>
+            <div class="success-box">
+                <ul style="margin: 0; padding-left: 1.2rem;">
+                    <li>ADHD is highly impairing but <strong>highly treatable</strong></li>
+                    <li>Stimulants remain the <strong>most effective therapy</strong></li>
+                    <li>Untreated ADHD carries major academic, occupational, psychiatric, and substance-related risks</li>
+                    <li>Adult ADHD is <strong>frequently missed</strong> — maintain high index of suspicion</li>
+                    <li>Emotional dysregulation is clinically important even though not core DSM criteria</li>
+                    <li>Integrative approaches may help adjunctively, but evidence quality is much lower than for pharmacotherapy</li>
+                    <li>Sleep, exercise, structure, and psychoeducation significantly influence outcomes</li>
+                    <li><strong>Always screen for bipolar disorder</strong> before prescribing stimulants in emotionally dysregulated adults</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>ADHD Integrated Clinical Overview · For Educational Purposes</p>
+        <p style="margin-top: 0.5rem; font-size: 0.75rem;">This document is intended for medical education and does not replace clinical judgment or formal guidelines.</p>
+        <p style="margin-top: 1rem;">
+            <a href="https://github.com">View on GitHub</a> · 
+            <a href="#">Download PDF</a> · 
+            <a href="#definition">Back to Top</a>
+        </p>
+    </footer>
+
+    <script>
+        // Smooth scroll and active nav highlighting
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        function onScroll() {
+            const scrollPos = window.scrollY + 100;
+
+            sections.forEach((section, index) => {
+                if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    const activeLink = document.querySelector(`.nav-links a[href="#${section.id}"]`);
+                    if (activeLink) activeLink.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', onScroll);
+        onScroll();
+    </script>
+
+</body>
+</html>
